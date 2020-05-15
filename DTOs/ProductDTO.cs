@@ -1,0 +1,21 @@
+using System.ComponentModel.DataAnnotations;
+
+namespace ShoesStoreApi.DTOs {
+    public class ProductDTO {
+        public int Id { get; set; }
+
+        [Required]
+        public string Name { get; set; }
+        public string Img { get; set; }
+
+        [Required]
+        public string Price { get; set; }
+        //public int SizeId { get; set; }
+        //public Size Size { get; set; }
+        public string Size { get; set; }
+
+        [Required]
+        public int Number { get; set; }
+        public string Description { get; set; }
+    }
+}
