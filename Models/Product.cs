@@ -7,6 +7,8 @@ namespace ShoesStoreApi.Models {
 
         [Required]
         public string Name { get; set; }
+
+        public string Category { get; set; }
         public string Img { get; set; }
 
         [Required]
@@ -16,7 +18,7 @@ namespace ShoesStoreApi.Models {
         public string Size { get; set; }
 
         [Required]
-        public int Number { get; set; }
+        public int Amount { get; set; }
         public string Description { get; set; }
 
     }

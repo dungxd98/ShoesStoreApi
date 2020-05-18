@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ShoesStoreApi.Data;
 
 namespace ShoesStoreApi.Migrations.ShoesStoreApi
 {
     [DbContext(typeof(ShoesStoreApiContext))]
-    partial class ShoesStoreApiContextModelSnapshot : ModelSnapshot
+    [Migration("20200518120053_UpdateTableUser_Address")]
+    partial class UpdateTableUser_Address
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

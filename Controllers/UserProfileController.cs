@@ -24,8 +24,27 @@ namespace ShoesStoreApi.Controllers {
             return new {
                 user.FullName,
                     user.Email,
-                    user.UserName
+                    user.UserName,
+                    user.Address,
+                    user.PhoneNumber
             };
+        }
+        [HttpPut()]
+        [Authorize]
+        public async Task<IActionResult> UpdateUserProfile(ApplicationUserModel model)
+        {
+            var applicationUser = new ApplicationUser()
+            {
+                UserName = model.UserName,
+                Email = model.Email,
+                FullName = model.FullName,
+                Address = model.Address
+            };
+
+            var user = await _userManager.UpdateAsync(applicationUser);
+            return NoContent();
+
+
         }
     }
 }

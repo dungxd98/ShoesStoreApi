@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ShoesStoreApi.Data;
 
 namespace ShoesStoreApi.Migrations.ShoesStoreApi
 {
     [DbContext(typeof(ShoesStoreApiContext))]
-    partial class ShoesStoreApiContextModelSnapshot : ModelSnapshot
+    [Migration("20200518091154_Rename_amount")]
+    partial class Rename_amount
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,9 +29,6 @@ namespace ShoesStoreApi.Migrations.ShoesStoreApi
 
                     b.Property<int>("Amount")
                         .HasColumnType("int");
-
-                    b.Property<string>("Category")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");

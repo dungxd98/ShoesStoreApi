@@ -6,8 +6,8 @@ namespace ShoesStoreApi.DTOs {
 
         [Required]
         public string Name { get; set; }
+        public string Category { get; set; }
         public string Img { get; set; }
-
         [Required]
         public string Price { get; set; }
         //public int SizeId { get; set; }
@@ -15,7 +15,7 @@ namespace ShoesStoreApi.DTOs {
         public string Size { get; set; }
 
         [Required]
-        public int Number { get; set; }
+        public int Amount { get; set; }
         public string Description { get; set; }
     }
 }

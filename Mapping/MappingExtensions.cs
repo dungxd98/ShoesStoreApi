@@ -7,10 +7,11 @@ namespace ShoesStoreApi.Mapping {
             return new ProductDTO {
                 Id = product.Id,
                     Name = product.Name,
+                    Category = product.Category,
                     Img = product.Img,
                     Price = product.Price,
                     Size = product.Size,
-                    Number = product.Number,
+                    Amount = product.Amount,
                     Description = product.Description
             };
         }
@@ -18,10 +19,11 @@ namespace ShoesStoreApi.Mapping {
             return new Product {
                 Id = productDTO.Id,
                     Name = productDTO.Name,
+                    Category = productDTO.Category,
                     Img = productDTO.Img,
                     Price = productDTO.Price,
                     Size = productDTO.Size,
-                    Number = productDTO.Number,
+                    Amount = productDTO.Amount,
                     Description = productDTO.Description
             };
         }
