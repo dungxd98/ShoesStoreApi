@@ -16,7 +16,7 @@ namespace ShoesStoreApi.Migrations.ShoesStoreApi
                     Img = table.Column<string>(nullable: true),
                     Price = table.Column<string>(nullable: false),
                     Size = table.Column<string>(nullable: true),
-                    Amount = table.Column<int>(nullable: false),
+                    Number = table.Column<int>(nullable: false),
                     Description = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
