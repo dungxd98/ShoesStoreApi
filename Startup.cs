@@ -34,6 +34,7 @@ namespace ShoesStoreApi {
             services.AddDbContext<ShoesStoreApiContext>(options =>
                options.UseSqlServer(Configuration.GetConnectionString("ShoesStoreApiConnection")));
             services.AddDefaultIdentity<ApplicationUser> ()
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<AuthenticationContext> ();
             services.Configure<IdentityOptions> (options => {
                 options.Password.RequireDigit = false;
