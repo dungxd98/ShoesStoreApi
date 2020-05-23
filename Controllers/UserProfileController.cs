@@ -5,6 +5,8 @@ using ShoesStoreApi.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace ShoesStoreApi.Controllers {
     [Route ("api/[controller]")]
@@ -28,6 +30,14 @@ namespace ShoesStoreApi.Controllers {
                     user.Address,
                     user.PhoneNumber
             };
+        }
+        [HttpGet]
+        [Route("ListUsers")]
+        //GET : /api/UserProfile/ListUsers
+        public async Task<Object> GetListUsers()
+        {
+            ApplicationUser user = await _userManager.GetUserAsync(User);
+            return user;
         }
         [HttpPost]
         [Authorize]
