@@ -40,6 +40,15 @@ namespace ShoesStoreApi.Controllers {
              return Ok(users);
         }
 
+        [HttpGet]
+        [Route("ListUsersOfRole")]
+        //GET : /api/UserProfile/ListUsersOfRole
+        public IActionResult ListUsersOfRole()
+        {
+            var users = _userManager.GetUsersInRoleAsync("Customer").Result;
+            return Ok(users);
+        }
+
         [HttpPost]
         [Authorize]
         [Route("UpdateUserProfile")]
