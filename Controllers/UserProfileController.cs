@@ -29,19 +29,21 @@ namespace ShoesStoreApi.Controllers {
                     user.PhoneNumber
             };
         }
-        [HttpPut()]
+        [HttpPost]
         [Authorize]
+        //PUT : /api/UpdateUserProfile
         public async Task<IActionResult> UpdateUserProfile(ApplicationUserModel model)
         {
-            var applicationUser = new ApplicationUser()
-            {
-                UserName = model.UserName,
-                Email = model.Email,
-                FullName = model.FullName,
-                Address = model.Address
-            };
+            /*string userId = User.Claims.First(c => c.Type == "UserID").Value;
+            ApplicationUser applicationUser = await _userManager.FindByIdAsync(userId);*/
+            ApplicationUser user = await _userManager.FindByIdAsync(model.Id);
+            
+            user.UserName = model.UserName;
+                user.Email = model.Email;
+                user.FullName = model.FullName;
+                user.Address = model.Address;
 
-            var user = await _userManager.UpdateAsync(applicationUser);
+            await _userManager.UpdateAsync(user);
             return NoContent();
 
 
