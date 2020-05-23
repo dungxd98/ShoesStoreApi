@@ -34,11 +34,12 @@ namespace ShoesStoreApi.Controllers {
         [HttpGet]
         [Route("ListUsers")]
         //GET : /api/UserProfile/ListUsers
-        public async Task<Object> GetListUsers()
+        public IActionResult ListUsers()
         {
-            ApplicationUser user = await _userManager.GetUserAsync(User);
-            return user;
+             var users = _userManager.Users;
+             return Ok(users);
         }
+
         [HttpPost]
         [Authorize]
         [Route("UpdateUserProfile")]
