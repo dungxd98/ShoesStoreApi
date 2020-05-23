@@ -31,16 +31,17 @@ namespace ShoesStoreApi.Controllers {
         }
         [HttpPost]
         [Authorize]
-        //PUT : /api/UpdateUserProfile
+        [Route("UpdateUserProfile")]
+        //POST : api/UserProfile/UpdateUserProfile
         public async Task<IActionResult> UpdateUserProfile(ApplicationUserModel model)
         {
-            /*string userId = User.Claims.First(c => c.Type == "UserID").Value;
-            ApplicationUser applicationUser = await _userManager.FindByIdAsync(userId);*/
-            ApplicationUser user = await _userManager.FindByIdAsync(model.Id);
-            
+            string userId = User.Claims.First(c => c.Type == "UserID").Value;
+            var user = await _userManager.FindByIdAsync(userId);
+
             user.UserName = model.UserName;
                 user.Email = model.Email;
                 user.FullName = model.FullName;
+                user.PhoneNumber = model.PhoneNumber;
                 user.Address = model.Address;
 
             await _userManager.UpdateAsync(user);
