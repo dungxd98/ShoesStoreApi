@@ -28,7 +28,7 @@ namespace ShoesStoreApi.Controllers {
         //POST : api/ApplicationUser/Register
         public async Task<Object> PostApplicationUser (ApplicationUserModel model) {
             
-            model.Role = "Admin";
+            model.Role = "Customer";
             var applicationUser = new ApplicationUser () {
                 UserName = model.UserName,
                 Email = model.Email,
