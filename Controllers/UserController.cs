@@ -40,6 +40,7 @@ namespace ShoesStoreApi.Controllers
             var model = new ApplicationUserModel
             {
                 Id = user.Id,
+                FullName = user.FullName,
                 Email = user.Email,
                 UserName = user.UserName,
                 Address = user.Address,
@@ -49,7 +50,33 @@ namespace ShoesStoreApi.Controllers
 
             return Ok(model);
         }
+        [HttpPost]
+        [Route("UpdateUser")]
+        //POST : /api/User/UpdateUser
+        public async Task<IActionResult> UpdateUser(ApplicationUserModel model)
+        {
+            var user = await _userManager.FindByIdAsync(model.Id);
 
+            user.FullName = model.FullName;
+                user.UserName = model.UserName;
+                user.Email = model.Email;
+                user.Address = model.Address;
+                user.PhoneNumber = model.PhoneNumber;
+
+            var result = await _userManager.UpdateAsync(user);
+
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("ListUsers");
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+
+                return Ok(model);
+        }
         [HttpGet]
         [Route("ListUsersOfRole")]
         //GET : /api/User/ListUsersOfRole
