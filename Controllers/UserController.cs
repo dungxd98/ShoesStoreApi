@@ -20,11 +20,19 @@ namespace ShoesStoreApi.Controllers
         }
 
         [HttpGet]
-        [Route("ListUsers")]
-        //GET : /api/User/ListUsers
-        public IActionResult ListUsers()
+        [Route("ListUsersAdmin")]
+        //GET : /api/User/ListUsersAdmin
+        public IActionResult ListUsersAdmin()
         {
-            var users = _userManager.Users;
+            var users = _userManager.GetUsersInRoleAsync("Admin").Result;
+            return Ok(users);
+        }
+        [HttpGet]
+        [Route("ListUsersCustomer")]
+        //GET : /api/User/ListUsersCustomer
+        public IActionResult ListUsersCustomer()
+        {
+            var users = _userManager.GetUsersInRoleAsync("Customer").Result;
             return Ok(users);
         }
         [HttpGet]
@@ -51,6 +59,32 @@ namespace ShoesStoreApi.Controllers
             return Ok(model);
         }
         [HttpPost]
+        [Route("Register")]
+        //POST : api/User/Register
+        public async Task<Object> Register(ApplicationUserModel model)
+        {
+
+            model.Role = "Admin";
+            var applicationUser = new ApplicationUser()
+            {
+                UserName = model.UserName,
+                Email = model.Email,
+                FullName = model.FullName,
+                Address = model.Address,
+                PhoneNumber = model.PhoneNumber
+            };
+            try
+            {
+                var result = await _userManager.CreateAsync(applicationUser, model.Password);
+                await _userManager.AddToRoleAsync(applicationUser, model.Role);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        [HttpPost]
         [Route("UpdateUser")]
         //POST : /api/User/UpdateUser
         public async Task<IActionResult> UpdateUser(ApplicationUserModel model)
@@ -63,27 +97,9 @@ namespace ShoesStoreApi.Controllers
                 user.Address = model.Address;
                 user.PhoneNumber = model.PhoneNumber;
 
-            var result = await _userManager.UpdateAsync(user);
+            await _userManager.UpdateAsync(user);
 
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("ListUsers");
-                }
-
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError("", error.Description);
-                }
-
-                return Ok(model);
-        }
-        [HttpGet]
-        [Route("ListUsersOfRole")]
-        //GET : /api/User/ListUsersOfRole
-        public IActionResult ListUsersOfRole()
-        {
-            var users = _userManager.GetUsersInRoleAsync("Customer").Result;
-            return Ok(users);
+            return Ok(model);
         }
     }
 }
