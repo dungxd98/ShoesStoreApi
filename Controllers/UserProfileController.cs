@@ -59,22 +59,34 @@ namespace ShoesStoreApi.Controllers {
         //POST : api/UserProfile/ChangePassword
         public async Task<IActionResult> ChangePassword(ChangePasswordModel model)
         {
-            var user = await _userManager.GetUserAsync(User);
-            // ChangePasswordAsync changes the user password
-                var result = await _userManager.ChangePasswordAsync(user,model.CurrentPassword, model.NewPassword);
-            if (!result.Succeeded)
+            try
             {
-                foreach (var error in result.Errors)
+                string userId = User.Claims.First(c => c.Type == "UserID").Value;
+                var user = await _userManager.FindByIdAsync(userId);
+                if (user == null)
                 {
-                    ModelState.AddModelError(string.Empty, error.Description);
+                    return BadRequest(new { message = "User is not exist" });
                 }
-                return Ok();
-            }
-            // Upon successfully changing the password refresh sign-in cookie
-            await _signInManager.RefreshSignInAsync(user);
-                //return Ok("ChangePasswordConfirmation");
 
-            return Ok(model);
+                // ChangePasswordAsync changes the user password
+                var result = await _userManager.ChangePasswordAsync(user,
+                    model.CurrentPassword, model.NewPassword);
+
+                if (!result.Succeeded)
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                    return Ok(result);
+                }
+
+                return Ok("ChangePasswordConfirmation");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
         [HttpGet]
         [Authorize(Roles = "Admin")]
