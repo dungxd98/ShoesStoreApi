@@ -13,6 +13,7 @@ namespace ShoesStoreApi.Controllers {
     [ApiController]
     public class UserProfileController : ControllerBase {
         private UserManager<ApplicationUser> _userManager;
+        private SignInManager<ApplicationUser> _signInManager;
         public UserProfileController (UserManager<ApplicationUser> userManager) {
             _userManager = userManager;
         }
@@ -51,6 +52,29 @@ namespace ShoesStoreApi.Controllers {
             return NoContent();
 
 
+        }
+        [HttpPost]
+        [Authorize]
+        [Route("ChangePassword")]
+        //POST : api/UserProfile/ChangePassword
+        public async Task<IActionResult> ChangePassword(ChangePasswordModel model)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            // ChangePasswordAsync changes the user password
+                var result = await _userManager.ChangePasswordAsync(user,model.CurrentPassword, model.NewPassword);
+            if (!result.Succeeded)
+            {
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+                return Ok();
+            }
+            // Upon successfully changing the password refresh sign-in cookie
+            await _signInManager.RefreshSignInAsync(user);
+                //return Ok("ChangePasswordConfirmation");
+
+            return Ok(model);
         }
         [HttpGet]
         [Authorize(Roles = "Admin")]
