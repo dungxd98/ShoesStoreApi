@@ -103,17 +103,22 @@ namespace ShoesStoreApi.Controllers
             return Ok(model);
         }
         [HttpPost]
-        [Route("UpdateStatus")]
-        //POST : /api/User/UpdateStatus
-        public async Task<IActionResult> UpdateStatus(string UserName, ApplicationUserModel model)
+        [Route("UpdateStatusDeActive")]
+        //POST : /api/User/UpdateStatusDeActive
+        public async Task<IActionResult> UpdateStatusDeActive(string UserName)
         {
             var user = await _userManager.FindByNameAsync(UserName);
-
-            user.Status = model.Status;
-
+            if(user.Status == "Active")
+            {
+                user.Status = "DeActive";
+            }    
+            else
+            {
+                return BadRequest(new { message = "Username đã được DeActive." });
+            }    
             await _userManager.UpdateAsync(user);
 
-            return Ok(model);
+            return NoContent();
         }
     }
 }
