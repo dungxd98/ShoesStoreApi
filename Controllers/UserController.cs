@@ -71,7 +71,8 @@ namespace ShoesStoreApi.Controllers
                 Email = model.Email,
                 FullName = model.FullName,
                 Address = model.Address,
-                PhoneNumber = model.PhoneNumber
+                PhoneNumber = model.PhoneNumber,
+                Status = "Active"
             };
             try
             {
@@ -96,6 +97,19 @@ namespace ShoesStoreApi.Controllers
                 user.Email = model.Email;
                 user.Address = model.Address;
                 user.PhoneNumber = model.PhoneNumber;
+
+            await _userManager.UpdateAsync(user);
+
+            return Ok(model);
+        }
+        [HttpPost]
+        [Route("UpdateStatus")]
+        //POST : /api/User/UpdateStatus
+        public async Task<IActionResult> UpdateStatus(string UserName, ApplicationUserModel model)
+        {
+            var user = await _userManager.FindByNameAsync(UserName);
+
+            user.Status = model.Status;
 
             await _userManager.UpdateAsync(user);
 

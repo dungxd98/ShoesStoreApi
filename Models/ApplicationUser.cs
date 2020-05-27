@@ -6,5 +6,7 @@ namespace ShoesStoreApi.Models {
         [Column (TypeName = "nvarchar(150)")]
         public string FullName { get; set; }
         public string Address { get; set; }
+        public string Status { get; set; }
+
     }
 }

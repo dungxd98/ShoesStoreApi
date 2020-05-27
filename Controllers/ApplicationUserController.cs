@@ -32,7 +32,8 @@ namespace ShoesStoreApi.Controllers {
             var applicationUser = new ApplicationUser () {
                 UserName = model.UserName,
                 Email = model.Email,
-                FullName = model.FullName
+                FullName = model.FullName,
+                Status = "Active"
             };
             try {
                 var result = await _userManager.CreateAsync (applicationUser, model.Password);
