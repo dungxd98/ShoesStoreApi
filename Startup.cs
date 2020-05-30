@@ -86,7 +86,7 @@ namespace ShoesStoreApi {
             app.UseCors (builder =>
                 builder.AllowAnyHeader ()
                 .AllowAnyMethod ()
-                .WithOrigins (Configuration["ApplicationSettings:Client_URL"].ToString (), Configuration["ApplicationSettings:Client_URL2"].ToString())
+                .WithOrigins (Configuration["ApplicationSettings:Client_URL"].ToString ())
             );
             //app.UseCors(builder =>
             //   builder.AllowAnyHeader()
