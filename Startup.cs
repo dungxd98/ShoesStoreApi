@@ -33,6 +33,12 @@ namespace ShoesStoreApi {
                 options.UseSqlServer (Configuration.GetConnectionString ("ShoesStoreApiConnection")));
             services.AddDbContext<ShoesStoreApiContext>(options =>
                options.UseSqlServer(Configuration.GetConnectionString("ShoesStoreApiConnection")));
+            //services Cart
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped(sp => Cart.GetCart(sp));
+            services.AddMemoryCache();
+            services.AddSession();
+            //
             services.AddDefaultIdentity<ApplicationUser> ()
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<AuthenticationContext> ();
@@ -88,11 +94,9 @@ namespace ShoesStoreApi {
                 .AllowAnyMethod ()
                 .WithOrigins (Configuration["ApplicationSettings:Client_URL"].ToString ())
             );
-            //app.UseCors(builder =>
-            //   builder.AllowAnyHeader()
-            //   .AllowAnyMethod()
-            //   .WithOrigins(Configuration["ApplicationSettings:Client_URL2"].ToString())
-            //);
+            //
+            app.UseSession();
+            //
             app.UseRouting ();
 
             app.UseAuthentication ();
