@@ -40,16 +40,28 @@ namespace ShoesStoreApi.Controllers
         [HttpPost]
         public async Task<IActionResult> AddToCart(int productId)
         {
-            var selectedProduct = await _contextProduct.Products.FindAsync(productId);
-
-            if(selectedProduct != null)
+            try
             {
-                _cart.AddToCart(selectedProduct, 1);
+                    var selectedProduct = await _contextProduct.Products.FindAsync(productId);
+
+                    if (selectedProduct != null)
+                {
+                    _cart.AddToCart(selectedProduct, 1);
+                }
+                else
+                {
+                    return BadRequest();
+                }
+                return Ok();
             }
-            return Ok();
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete]
         public async Task<IActionResult> RemoveFromCart(int productId)
         {
             var selectedProduct = await _contextProduct.Products.FindAsync(productId);

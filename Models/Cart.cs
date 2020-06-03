@@ -45,7 +45,7 @@ namespace ShoesStoreApi.Models
                 {
                     CartId = CartId,
                     Product = product,
-                    Quantity = 1
+                    Quantity = quantity
                 };
                 _context.CartItems.Add(shoppingCartItem);
             }
