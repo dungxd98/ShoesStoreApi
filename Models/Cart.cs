@@ -89,10 +89,10 @@ namespace ShoesStoreApi.Models
             _context.CartItems.RemoveRange(cartItems);
             _context.SaveChanges();
         }
-        //public decimal GetCartTotal()
-        //{
-        //    var total = _context.CartItems.Where(c => c.CartId == CartId).Select(c => c.Product.Price*c.Quantity).Sum();
-        //    return total;
-        //}
+        public decimal GetCartTotal()
+        {
+            var total = _context.CartItems.Where(c => c.CartId == CartId).Select(c => Convert.ToInt32(c.Product.Price) * c.Quantity).Sum();
+            return total;
+        }
     }
 }
