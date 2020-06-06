@@ -8,7 +8,7 @@ namespace ShoesStoreApi.Models
     public class Order
     {
         public int OrderId { get; set; }
-        public List<OrderDetails> OrderLines { get; set; }
+        //public List<OrderDetails> OrderLines { get; set; }
         public string UserName { get; set; } 
         public string CustomerName { get; set; }
         public DateTime DateTime { get; set; }
@@ -17,6 +17,7 @@ namespace ShoesStoreApi.Models
         public string Email { get; set; }
         public string State { get; set; }
         public string OrderTotal { get; set; }
+        public virtual ICollection<OrderDetails> OrderDetails { get; set; }
 
     }
 }
