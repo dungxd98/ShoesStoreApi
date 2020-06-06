@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SignalR;
 using ShoesStoreApi.Data;
 using ShoesStoreApi.Models;
 
@@ -20,22 +19,41 @@ namespace ShoesStoreApi.Controllers
             _context = context;
         }
         [HttpPost]
-        public IActionResult CreateProduct(Order order)
+        public IActionResult CreateProduct(OrderInfo orderInfo)
         {
             try
             {
-                order.DateTime = DateTime.Now;
+                Order order = new Order
+                {
+                    DateTime = DateTime.Now,
+                    CustomerName = orderInfo.CustomerName,
+                    Address = orderInfo.Address,
+                    PhoneNumber = orderInfo.PhoneNumber,
+                    Email = orderInfo.Email
+                };
                 _context.Orders.Add(order);
                 _context.SaveChanges();
+
+                foreach (OrderDetailsInfo orderDetailsInfo in
+                    orderInfo.orderDetailsInfo)
+                {
+                    OrderDetails orderDetails = new OrderDetails
+                    {
+                        OrderId = order.OrderId,
+                        ProductId=orderDetailsInfo.ProductId,
+                        Quantity=orderDetailsInfo.Quantity,
+                        Price=orderDetailsInfo.Price
+                    };
+                    _context.OrderDetails.Add(orderDetails);
+                    _context.SaveChanges();
+                }
+                return Ok();
             }
             catch
             {
-
+                return BadRequest();
             }
 
-            return Ok();
         }
-
-
     }
 }
