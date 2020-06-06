@@ -49,7 +49,7 @@ namespace ShoesStoreApi.Controllers
                 }
                 return Ok();
             }
-            catch
+            catch(Exception e)
             {
                 return BadRequest();
             }
