@@ -16,7 +16,7 @@ namespace ShoesStoreApi.Models
         public string Address { get; set; }
         public string Email { get; set; }
         public string State { get; set; }
-        public decimal OrderTotal { get; set; }
+        public string OrderTotal { get; set; }
 
     }
 }
