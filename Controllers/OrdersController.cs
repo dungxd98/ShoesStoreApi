@@ -18,8 +18,9 @@ namespace ShoesStoreApi.Controllers
         {
             _context = context;
         }
+        [Produces("application/json")]
         [HttpPost]
-        public IActionResult CreateProduct(OrderInfo orderInfo)
+        public IActionResult Create([FromBody] OrderInfo orderInfo)
         {
             try
             {
@@ -29,7 +30,8 @@ namespace ShoesStoreApi.Controllers
                     CustomerName = orderInfo.CustomerName,
                     Address = orderInfo.Address,
                     PhoneNumber = orderInfo.PhoneNumber,
-                    Email = orderInfo.Email
+                    Email = orderInfo.Email,
+                    UserName =orderInfo.Username,
                 };
                 _context.Orders.Add(order);
                 _context.SaveChanges();
