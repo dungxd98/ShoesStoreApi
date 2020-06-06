@@ -18,9 +18,9 @@ namespace ShoesStoreApi.Controllers
         {
             _context = context;
         }
-        [Produces("application/json")]
+        
         [HttpPost]
-        public IActionResult Create([FromBody] OrderInfo orderInfo)
+        public IActionResult Create( OrderInfo orderInfo)
         {
             try
             {
@@ -31,7 +31,7 @@ namespace ShoesStoreApi.Controllers
                     Address = orderInfo.Address,
                     PhoneNumber = orderInfo.PhoneNumber,
                     Email = orderInfo.Email,
-                    UserName =orderInfo.Username,
+                    UserName =orderInfo.Username
                 };
                 _context.Orders.Add(order);
                 _context.SaveChanges();
