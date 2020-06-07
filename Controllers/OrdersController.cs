@@ -127,5 +127,23 @@ namespace ShoesStoreApi.Controllers
             }
 
         }
+        [HttpPost]
+        [Route("UpdateStateDone")]
+        //POST : /api/orders/UpdateStateDone
+        public async Task<IActionResult> UpdateStatusDone(int id)
+        {
+            var order = await _context.Orders.FindAsync(id);
+            if (order.State == "pending")
+            {
+                order.State = "Done";
+            }
+            else
+            {
+                return BadRequest(new { message = "Đã thanh toán rồi." });
+            }
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
     }
 }
