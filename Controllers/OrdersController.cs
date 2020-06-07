@@ -19,6 +19,22 @@ namespace ShoesStoreApi.Controllers
         {
             _context = context;
         }
+        [HttpGet]
+        [Route("GetOrder")]
+        //GET : /api/orders/GetOrder
+        public IActionResult GetOrder()
+        {
+            try
+            {
+                var order = _context.Orders.ToList();
+
+                return Ok(order);
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
 
         [HttpGet]
         //[Route("GetOrderByUserName")]
