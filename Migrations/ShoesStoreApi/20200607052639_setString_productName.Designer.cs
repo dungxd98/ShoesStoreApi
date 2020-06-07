@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ShoesStoreApi.Data;
 
 namespace ShoesStoreApi.Migrations.ShoesStoreApi
 {
     [DbContext(typeof(ShoesStoreApiContext))]
-    partial class ShoesStoreApiContextModelSnapshot : ModelSnapshot
+    [Migration("20200607052639_setString_productName")]
+    partial class setString_productName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

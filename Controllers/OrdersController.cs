@@ -20,13 +20,30 @@ namespace ShoesStoreApi.Controllers
             _context = context;
         }
 
-        [HttpGet("{userName}")]
-        //GET : /api/orders/admin
+        [HttpGet]
+        //[Route("GetOrderByUserName")]
+        //GET : /api/orders/GetOrderByUserName/admin
         public IActionResult GetOrderByUserName(string userName)
         {
             try
             {
                 var order = _context.Orders.Where(c => c.UserName == userName)
+               .ToList();
+
+                return Ok(order);
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+        [HttpGet("{id}")]
+        //GET : /api/orders/1
+        public IActionResult GetOrderByOrderId(int id)
+        {
+            try
+            {
+                var order = _context.OrderDetails.Where(c => c.OrderId == id)
                .ToList();
 
                 return Ok(order);
@@ -62,6 +79,7 @@ namespace ShoesStoreApi.Controllers
                     {
                         OrderId = order.Id,
                         ProductId=orderDetailsInfo.ProductId,
+                        ProductName=orderDetailsInfo.ProductName,
                         Quantity=orderDetailsInfo.Quantity,
                         Price=orderDetailsInfo.Price
                     };
