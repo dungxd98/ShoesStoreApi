@@ -100,7 +100,8 @@ namespace ShoesStoreApi.Controllers
                     Address = orderInfo.Address,
                     PhoneNumber = orderInfo.PhoneNumber,
                     Email = orderInfo.Email,
-                    UserName =orderInfo.Username
+                    UserName =orderInfo.Username,
+                    State = orderInfo.State,
                 };
                 _context.Orders.Add(order);
                 _context.SaveChanges();
@@ -130,7 +131,7 @@ namespace ShoesStoreApi.Controllers
         [HttpPost]
         [Route("UpdateStateDone")]
         //POST : /api/orders/UpdateStateDone
-        public async Task<IActionResult> UpdateStatusDone(int id)
+        public async Task<IActionResult> UpdateStatusDeActive(int id)
         {
             var order = await _context.Orders.FindAsync(id);
             if (order.State == "pending")
