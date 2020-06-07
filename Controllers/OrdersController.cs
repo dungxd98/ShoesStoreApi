@@ -22,12 +22,29 @@ namespace ShoesStoreApi.Controllers
 
         [HttpGet]
         //[Route("GetOrderByUserName")]
-        //GET : /api/orders/GetOrderByUserName/admin
+        //GET : /api/orders?userName=admin
         public IActionResult GetOrderByUserName(string userName)
         {
             try
             {
                 var order = _context.Orders.Where(c => c.UserName == userName)
+               .ToList();
+
+                return Ok(order);
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+        [HttpGet]
+        [Route("GetOrderById")]
+        //GET : /api/orders/GetOrderById?id=5
+        public IActionResult GetOrderById(int id)
+        {
+            try
+            {
+                var order = _context.Orders.Where(c => c.Id == id)
                .ToList();
 
                 return Ok(order);
