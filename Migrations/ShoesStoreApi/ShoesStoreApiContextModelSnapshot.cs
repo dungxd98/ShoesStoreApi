@@ -44,7 +44,7 @@ namespace ShoesStoreApi.Migrations.ShoesStoreApi
 
             modelBuilder.Entity("ShoesStoreApi.Models.Order", b =>
                 {
-                    b.Property<int>("OrderId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -73,7 +73,7 @@ namespace ShoesStoreApi.Migrations.ShoesStoreApi
                     b.Property<string>("UserName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("OrderId");
+                    b.HasKey("Id");
 
                     b.ToTable("Orders");
                 });
@@ -154,7 +154,7 @@ namespace ShoesStoreApi.Migrations.ShoesStoreApi
             modelBuilder.Entity("ShoesStoreApi.Models.OrderDetails", b =>
                 {
                     b.HasOne("ShoesStoreApi.Models.Order", "Order")
-                        .WithMany("OrderLines")
+                        .WithMany("OrderDetails")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

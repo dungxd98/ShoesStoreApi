@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ShoesStoreApi.Migrations.ShoesStoreApi
 {
-    public partial class AddTableOrder_OrderDetails : Migration
+    public partial class Add_TableOrder_And_TableOrderDetail : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,19 +11,20 @@ namespace ShoesStoreApi.Migrations.ShoesStoreApi
                 name: "Orders",
                 columns: table => new
                 {
-                    OrderId = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<string>(nullable: true),
+                    UserName = table.Column<string>(nullable: true),
                     CustomerName = table.Column<string>(nullable: true),
                     DateTime = table.Column<DateTime>(nullable: false),
                     PhoneNumber = table.Column<string>(nullable: true),
                     Address = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
                     State = table.Column<string>(nullable: true),
-                    OrderTotal = table.Column<decimal>(nullable: false)
+                    OrderTotal = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Orders", x => x.OrderId);
+                    table.PrimaryKey("PK_Orders", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -45,7 +46,7 @@ namespace ShoesStoreApi.Migrations.ShoesStoreApi
                         name: "FK_OrderDetails_Orders_OrderId",
                         column: x => x.OrderId,
                         principalTable: "Orders",
-                        principalColumn: "OrderId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_OrderDetails_Products_ProductId",

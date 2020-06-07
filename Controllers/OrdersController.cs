@@ -18,7 +18,41 @@ namespace ShoesStoreApi.Controllers
         {
             _context = context;
         }
-        
+
+        [HttpGet("{userName}")]
+        //GET : /api/orders/admin
+        public async Task<IActionResult> GetOrderByUserName(string userName)
+        {
+            var order = await _context.Orders.FindAsync(userName);
+
+
+            var model = new Order
+            {
+               CustomerName = order.CustomerName,
+                Email = order.Email,
+                UserName = order.UserName,
+                Address = order.Address,
+                PhoneNumber = order.PhoneNumber,
+                DateTime = order.DateTime,
+                OrderTotal = order.OrderTotal
+            };
+
+            return Ok(model);
+        }
+        [HttpGet]
+        public async Task<Object> GetUserProfile(string userName)
+        {
+            var order = await _context.Orders.FindAsync(userName);
+            return new
+            {
+                order.Email,
+                order.UserName,
+                order.Address,
+                order.PhoneNumber
+            };
+        }
+
+
         [HttpPost]
         public IActionResult Create( OrderInfo orderInfo)
         {
@@ -41,7 +75,7 @@ namespace ShoesStoreApi.Controllers
                 {
                     OrderDetails orderDetails = new OrderDetails
                     {
-                        OrderId = order.OrderId,
+                        Id = order.Id,
                         ProductId=orderDetailsInfo.ProductId,
                         Quantity=orderDetailsInfo.Quantity,
                         Price=orderDetailsInfo.Price
