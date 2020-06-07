@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ShoesStoreApi.Data;
 using ShoesStoreApi.Models;
 
@@ -21,35 +22,19 @@ namespace ShoesStoreApi.Controllers
 
         [HttpGet("{userName}")]
         //GET : /api/orders/admin
-        public async Task<IActionResult> GetOrderByUserName(string userName)
+        public IActionResult GetOrderByUserName(string userName)
         {
-            var order = await _context.Orders.FindAsync(userName);
-
-
-            var model = new Order
+            try
             {
-               CustomerName = order.CustomerName,
-                Email = order.Email,
-                UserName = order.UserName,
-                Address = order.Address,
-                PhoneNumber = order.PhoneNumber,
-                DateTime = order.DateTime,
-                OrderTotal = order.OrderTotal
-            };
+                var order = _context.Orders.Where(c => c.UserName == userName)
+               .ToList();
 
-            return Ok(model);
-        }
-        [HttpGet]
-        public async Task<Object> GetUserProfile(string userName)
-        {
-            var order = await _context.Orders.FindAsync(userName);
-            return new
+                return Ok(order);
+            }
+            catch
             {
-                order.Email,
-                order.UserName,
-                order.Address,
-                order.PhoneNumber
-            };
+                return BadRequest();
+            }
         }
 
 
