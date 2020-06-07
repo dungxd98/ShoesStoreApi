@@ -75,7 +75,7 @@ namespace ShoesStoreApi.Controllers
                 {
                     OrderDetails orderDetails = new OrderDetails
                     {
-                        Id = order.Id,
+                        OrderId = order.Id,
                         ProductId=orderDetailsInfo.ProductId,
                         Quantity=orderDetailsInfo.Quantity,
                         Price=orderDetailsInfo.Price
