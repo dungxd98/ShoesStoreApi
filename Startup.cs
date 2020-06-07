@@ -17,6 +17,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using ShoesStoreApi.Data;
+using Stripe;
 
 namespace ShoesStoreApi {
     public class Startup {
@@ -76,6 +77,7 @@ namespace ShoesStoreApi {
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        
         public void Configure (IApplicationBuilder app, IWebHostEnvironment env) {
 
             app.Use (async (ctx, next) => {
@@ -84,6 +86,8 @@ namespace ShoesStoreApi {
                     ctx.Response.ContentLength = 0;
                 }
             });
+
+            StripeConfiguration.SetApiKey(Configuration.GetSection("ApplicationSettings")["StripeSecretKey"]);
 
             if (env.IsDevelopment ()) {
                 app.UseDeveloperExceptionPage ();
