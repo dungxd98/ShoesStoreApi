@@ -25,6 +25,22 @@ namespace ShoesStoreApi.Controllers {
                 .Select (p => p.ToDTO ())
                 .ToListAsync ();
         }
+        [HttpGet()]
+        [Route("GetProductsByCategory")]
+        //GET : /api/products/GetProductsByCategory?category=Nike
+        public IActionResult GetProductsByCategory(string category)
+        {
+            try
+            {
+                var product = _context.Products.Where(c => c.Category == category).ToList();
+
+                return Ok(product);
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
 
         [HttpGet ("{id}")]
         public async Task<ActionResult<ProductDTO>> GetProduct (int id) {
