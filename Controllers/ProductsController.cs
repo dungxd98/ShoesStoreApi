@@ -58,6 +58,22 @@ namespace ShoesStoreApi.Controllers {
                 return BadRequest();
             }
         }
+        [HttpGet()]
+        [Route("GetProductsSearch")]
+        //GET : /api/products/GetProductsByPrice?price=
+        public IActionResult GetProductsSearch(decimal price, string category)
+        {
+            try
+            {
+                var product = _context.Products.Where(c => Convert.ToDecimal(c.Price) <= price && c.Category == category).ToList();
+
+                return Ok(product);
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
 
         [HttpGet ("{id}")]
         public async Task<ActionResult<ProductDTO>> GetProduct (int id) {
