@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -33,6 +34,22 @@ namespace ShoesStoreApi.Controllers {
             try
             {
                 var product = _context.Products.Where(c => c.Category == category).ToList();
+
+                return Ok(product);
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+        [HttpGet()]
+        [Route("GetProductsByPrice")]
+        //GET : /api/products/GetProductsByPrice?price=
+        public IActionResult GetProductsByPrice(decimal price)
+        {
+            try
+            {
+                var product = _context.Products.Where(c => Convert.ToDecimal(c.Price) <= price).ToList();
 
                 return Ok(product);
             }
