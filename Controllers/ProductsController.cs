@@ -74,6 +74,22 @@ namespace ShoesStoreApi.Controllers {
                 return BadRequest();
             }
         }
+        [HttpGet()]
+        [Route("GetProductsByName")]
+        //GET : /api/products/GetProductsByName?name=Nike
+        public IActionResult GetProductsByName(string name)
+        {
+            try
+            {
+                var product = _context.Products.Where(c => c.Name.Contains(name)).ToList();
+
+                return Ok(product);
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
 
         [HttpGet ("{id}")]
         public async Task<ActionResult<ProductDTO>> GetProduct (int id) {
