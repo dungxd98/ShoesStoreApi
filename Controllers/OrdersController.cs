@@ -100,8 +100,9 @@ namespace ShoesStoreApi.Controllers
                     Address = orderInfo.Address,
                     PhoneNumber = orderInfo.PhoneNumber,
                     Email = orderInfo.Email,
-                    UserName =orderInfo.Username,
+                    UserName = orderInfo.Username,
                     State = orderInfo.State,
+                    OrderTotal = orderInfo.OrderTotal.ToString()
                 };
                 _context.Orders.Add(order);
                 _context.SaveChanges();

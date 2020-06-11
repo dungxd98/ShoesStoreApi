@@ -12,8 +12,8 @@ namespace ShoesStoreApi.Models
         public string Address { get; set; }
         public string Email { get; set; }
         public string Username { get; set; }
-
         public string State { get; set; }
+        public int OrderTotal { get; set; }
         public List<OrderDetailsInfo> orderDetailsInfo { get; set; }
     }
 }
