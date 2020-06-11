@@ -122,6 +122,18 @@ namespace ShoesStoreApi.Controllers {
             }
             return NoContent ();
         }
+        [HttpPost]
+        [Route("UpdateAmount")]
+        //POST : /api/orders/UpdateAmount
+        public async Task<IActionResult> UpdateAmount(int id, int amount)
+        {
+            var product = await _context.Products.FindAsync(id);
+            product.Amount = amount;
+
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
 
         [HttpDelete ("{id}")]
         public async Task<IActionResult> DeleteProduct (int id) {
