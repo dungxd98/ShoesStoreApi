@@ -135,7 +135,7 @@ namespace ShoesStoreApi.Controllers
         public async Task<IActionResult> UpdateStatusDeActive(int id)
         {
             var order = await _context.Orders.FindAsync(id);
-            if (order.State == "pending")
+            if (order.State == "Pending")
             {
                 order.State = "Done";
             }
