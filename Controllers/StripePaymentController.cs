@@ -15,7 +15,8 @@ namespace ShoesStoreApi.Controllers
     public class StripePaymentController : ControllerBase
     {
         [HttpPost]
-        public IActionResult Processing([FromBody]StripePaymentRequest paymentRequest)
+        /*public IActionResult Processing([FromBody]StripePaymentRequest paymentRequest)*/
+        public JsonResult Post([FromBody]StripePaymentRequest paymentRequest)
         {
             var myCharge = new ChargeCreateOptions();
             myCharge.Source = paymentRequest.tokenId;
@@ -27,7 +28,7 @@ namespace ShoesStoreApi.Controllers
             var chargeService = new ChargeService();
             Charge stripeCharge = chargeService.Create(myCharge);
 
-            return Ok(stripeCharge);
+            return new JsonResult(stripeCharge);
         }
 
         public class StripePaymentRequest

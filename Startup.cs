@@ -39,6 +39,7 @@ namespace ShoesStoreApi {
             services.AddScoped(sp => Cart.GetCart(sp));
             services.AddMemoryCache();
             services.AddSession();
+            services.AddMvc().AddNewtonsoftJson();
             //
             services.AddDefaultIdentity<ApplicationUser> ()
                 .AddRoles<IdentityRole>()
@@ -87,7 +88,7 @@ namespace ShoesStoreApi {
                 }
             });
 
-            StripeConfiguration.SetApiKey(Configuration.GetSection("ApplicationSettings")["StripeSecretKey"]);
+            StripeConfiguration.ApiKey = "sk_test_51GqfmaCCRha5wX7E1umeCtKrd9SSpBRQA4wcsJujaI4Hz4LDDUEBqi0EFSofd4q8UKOcmqoEKlzLGyIIDq9tCKta00lGPXYlvd";
 
             if (env.IsDevelopment ()) {
                 app.UseDeveloperExceptionPage ();
