@@ -36,6 +36,14 @@ namespace ShoesStoreApi.Controllers
             return Ok(users);
         }
         [HttpGet]
+        [Route("ListUsersSale")]
+        //GET : /api/User/ListUsersSale
+        public IActionResult ListUsersSale()
+        {
+            var users = _userManager.GetUsersInRoleAsync("Sale").Result;
+            return Ok(users);
+        }
+        [HttpGet]
         [Route("UserDetai")]
         //GET : /api/User/UserDetai
         public async Task<IActionResult> EditUser(string id)
@@ -65,6 +73,33 @@ namespace ShoesStoreApi.Controllers
         {
 
             model.Role = "Admin";
+            var applicationUser = new ApplicationUser()
+            {
+                UserName = model.UserName,
+                Email = model.Email,
+                FullName = model.FullName,
+                Address = model.Address,
+                PhoneNumber = model.PhoneNumber,
+                Status = "Active"
+            };
+            try
+            {
+                var result = await _userManager.CreateAsync(applicationUser, model.Password);
+                await _userManager.AddToRoleAsync(applicationUser, model.Role);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        [HttpPost]
+        [Route("RegisterSale")]
+        //POST : api/User/RegisterSale
+        public async Task<Object> RegisterSale(ApplicationUserModel model)
+        {
+
+            model.Role = "Sale";
             var applicationUser = new ApplicationUser()
             {
                 UserName = model.UserName,
