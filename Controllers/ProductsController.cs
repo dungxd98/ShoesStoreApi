@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -146,12 +146,32 @@ namespace ShoesStoreApi.Controllers {
         }
         [HttpPost]
         [Route("UpdateAmount")]
-        //POST : /api/orders/UpdateAmount
+        //POST : /api/products/UpdateAmount
         public async Task<IActionResult> UpdateAmount(int id, int amount)
         {
             var product = await _context.Products.FindAsync(id);
             product.Amount = amount;
 
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        [HttpPost]
+        [Route("UpdateStatusProcessed")]
+        //POST : /api/products/UpdateStatusProcessed
+        public async Task<IActionResult> UpdateStatusProcessed(int id)
+        {
+            var product = await _context.Products.FindAsync(id);
+            if (product.Status == "pending")
+            {
+                product.Status = "processed";
+            }
+            else
+            {
+                return BadRequest(new { message = "Phản hồi đã được xử lý." });
+            }
+            _context.Products.Update(product);
             await _context.SaveChangesAsync();
 
             return NoContent();
