@@ -12,7 +12,8 @@ namespace ShoesStoreApi.Mapping {
                     Price = product.Price,
                     Size = product.Size,
                     Amount = product.Amount,
-                    Description = product.Description
+                    Description = product.Description,
+                    Status = product.Status
             };
         }
         public static Product ToProduct (this ProductDTO productDTO) {
@@ -24,7 +25,8 @@ namespace ShoesStoreApi.Mapping {
                     Price = productDTO.Price,
                     Size = productDTO.Size,
                     Amount = productDTO.Amount,
-                    Description = productDTO.Description
+                    Description = productDTO.Description,
+                    Status = "pending"
             };
         }
     }

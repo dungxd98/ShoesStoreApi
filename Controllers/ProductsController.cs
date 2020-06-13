@@ -26,6 +26,18 @@ namespace ShoesStoreApi.Controllers {
                 .Select (p => p.ToDTO ())
                 .ToListAsync ();
         }
+        //GET /api/products 
+        //[HttpGet ("GetProduct")]
+        [HttpGet()]
+        [Route("GetProductsProcessed")]
+        //GET : /api/products/GetProductsProcessed
+        public async Task<ActionResult<IEnumerable<ProductDTO>>> GetProductsProcessed()
+        {
+            return await _context.Products
+                .Where(p => p.Status == "processed")
+                .Select(p => p.ToDTO())
+                .ToListAsync();
+        }
         [HttpGet()]
         [Route("GetProductsByCategory")]
         //GET : /api/products/GetProductsByCategory?category=Nike
@@ -33,7 +45,7 @@ namespace ShoesStoreApi.Controllers {
         {
             try
             {
-                var product = _context.Products.Where(c => c.Category == category).ToList();
+                var product = _context.Products.Where(c => c.Category == category && c.Status == "processed").ToList();
 
                 return Ok(product);
             }
@@ -49,7 +61,7 @@ namespace ShoesStoreApi.Controllers {
         {
             try
             {
-                var product = _context.Products.Where(c => Convert.ToDecimal(c.Price) <= price).ToList();
+                var product = _context.Products.Where(c => Convert.ToDecimal(c.Price) <= price && c.Status == "processed" ).ToList();
 
                 return Ok(product);
             }
@@ -65,7 +77,7 @@ namespace ShoesStoreApi.Controllers {
         {
             try
             {
-                var product = _context.Products.Where(c => Convert.ToDecimal(c.Price) <= price && c.Category == category).ToList();
+                var product = _context.Products.Where(c => Convert.ToDecimal(c.Price) <= price && c.Category == category && c.Status == "processed").ToList();
 
                 return Ok(product);
             }
@@ -81,7 +93,7 @@ namespace ShoesStoreApi.Controllers {
         {
             try
             {
-                var product = _context.Products.Where(c => c.Name.Contains(name)).ToList();
+                var product = _context.Products.Where(c => c.Name.Contains(name) && c.Status == "processed").ToList();
 
                 return Ok(product);
             }
