@@ -26,8 +26,7 @@ namespace ShoesStoreApi.Controllers {
                 .Select (p => p.ToDTO ())
                 .ToListAsync ();
         }
-        //GET /api/products 
-        //[HttpGet ("GetProduct")]
+
         [HttpGet()]
         [Route("GetProductsProcessed")]
         //GET : /api/products/GetProductsProcessed
@@ -35,6 +34,17 @@ namespace ShoesStoreApi.Controllers {
         {
             return await _context.Products
                 .Where(p => p.Status == "processed")
+                .Select(p => p.ToDTO())
+                .ToListAsync();
+        }
+
+        [HttpGet()]
+        [Route("GetProductsPending")]
+        //GET : /api/products/GetProductsPending
+        public async Task<ActionResult<IEnumerable<ProductDTO>>> GetProductsPending()
+        {
+            return await _context.Products
+                .Where(p => p.Status == "pending")
                 .Select(p => p.ToDTO())
                 .ToListAsync();
         }
