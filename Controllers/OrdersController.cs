@@ -116,7 +116,8 @@ namespace ShoesStoreApi.Controllers
                         ProductId=orderDetailsInfo.ProductId,
                         ProductName=orderDetailsInfo.ProductName,
                         Quantity=orderDetailsInfo.Quantity,
-                        Price=orderDetailsInfo.Price
+                        Price=orderDetailsInfo.Price,
+                        Size=orderDetailsInfo.Size
                     };
                     _context.OrderDetails.Add(orderDetails);
                     _context.SaveChanges();
