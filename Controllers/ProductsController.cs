@@ -49,6 +49,17 @@ namespace ShoesStoreApi.Controllers {
                 .ToListAsync();
         }
         [HttpGet()]
+        [Route("GetProductsNew")]
+        //GET : /api/products/GetProductsNew
+        public async Task<ActionResult<IEnumerable<ProductDTO>>> GetProductsNew()
+        {
+            return await _context.Products
+                .OrderByDescending(p => p.Id)
+                .Take(6)
+                .Select( p => p.ToDTO())
+                .ToListAsync();
+        }
+        [HttpGet()]
         [Route("GetProductsByCategory")]
         //GET : /api/products/GetProductsByCategory?category=Nike
         public IActionResult GetProductsByCategory(string category)
