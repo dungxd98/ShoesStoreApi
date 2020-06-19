@@ -55,6 +55,7 @@ namespace ShoesStoreApi.Controllers {
         {
             return await _context.Products
                 .OrderByDescending(p => p.Id)
+                .Where(p=> p.Status == "processed")
                 .Take(6)
                 .Select( p => p.ToDTO())
                 .ToListAsync();
