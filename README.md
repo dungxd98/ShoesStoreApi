@@ -1,2 +1,2 @@
 # ShoesStoreApi
-Sửa đổi connectionString trong appsetting.json rồi chạy project
+Sửa đổi ConnectionStrings trong appsettings.json rồi chạy project
