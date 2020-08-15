@@ -107,11 +107,13 @@ namespace ShoesStoreApi {
                 .AllowAnyMethod ()
                 .WithOrigins (Configuration["ApplicationSettings:Client_URL"].ToString ())
             );
+            app.UseHttpsRedirection();
+            app.UseCors("CorsPolicy");
             app.UseStaticFiles();
             app.UseStaticFiles(new StaticFileOptions()
             {
-                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Resource")),
-                RequestPath = new PathString("/Resource")
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Resources")),
+                RequestPath = new PathString("/Resources")
             });
             //
             app.UseSession();

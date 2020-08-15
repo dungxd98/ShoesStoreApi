@@ -33,7 +33,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Resource\Images\" />
+    <Folder Include="Resources\Images\" />
+    <Folder Include="wwwroot\css\" />
+    <Folder Include="wwwroot\js\" />
+    <Folder Include="wwwroot\lib\" />
   </ItemGroup>
 
 </Project>
