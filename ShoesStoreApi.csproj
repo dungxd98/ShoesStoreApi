@@ -32,4 +32,8 @@
     <PackageReference Include="Stripe.net" Version="37.8.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Resource\Images\" />
+  </ItemGroup>
+
 </Project>

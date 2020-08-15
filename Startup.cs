@@ -18,6 +18,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using ShoesStoreApi.Data;
 using Stripe;
+using Microsoft.AspNetCore.Http.Features;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
 
 namespace ShoesStoreApi {
     public class Startup {
@@ -57,6 +60,11 @@ namespace ShoesStoreApi {
             //         .Build ();
             // });
             services.AddCors ();
+            services.Configure<FormOptions>(o => {
+                o.ValueLengthLimit = int.MaxValue;
+                o.MultipartBodyLengthLimit = int.MaxValue;
+                o.MemoryBufferThreshold = int.MaxValue;
+            });
             //Jwt Authentication
             var key = Encoding.UTF8.GetBytes (Configuration["ApplicationSettings:JWT_Secret"].ToString ());
             services.AddAuthentication (x => {
@@ -99,6 +107,12 @@ namespace ShoesStoreApi {
                 .AllowAnyMethod ()
                 .WithOrigins (Configuration["ApplicationSettings:Client_URL"].ToString ())
             );
+            app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Resource")),
+                RequestPath = new PathString("/Resource")
+            });
             //
             app.UseSession();
             //
